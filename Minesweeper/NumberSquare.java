@@ -1,25 +1,40 @@
 
 
 /**
- * @author gd03
+ * @author Jessica Rosenfield
  *
  */
 public class NumberSquare implements Square {
+	private boolean revealed;
+	private int row;
+	private int column;
 	private int squareNum;
-	public NumberSquare(){
-		
+	
+	public NumberSquare(int sqNum, int r, int c){
+		revealed = false;
+		row = r;
+		column = c;
+		squareNum = sqNum;
 	}
-	public void setNum(int num){
-		squareNum = num;
+	
+	public int getNum(){
+		return squareNum;
 	}
+	
 	@Override
 	public void reveal() {
-		// TODO Auto-generated method stub
-		
+		revealed = true;
 	}
 	@Override
 	public boolean isRevealed() {
-		// TODO Auto-generated method stub
-		return false;
+		return revealed;
+	}
+	@Override
+	public int getRow() {
+		return row;
+	}
+	@Override
+	public int getColumn() {
+		return column;
 	}
 }
