@@ -1,7 +1,7 @@
 public class Game {
 	public enum Level {BEGINNER, ADVANCED, EXPERT, CUSTOM};
 	
-	public Game(level l) {
+	public Game(Level l) {
 		// TODO create switch with cases
 	}
 	
