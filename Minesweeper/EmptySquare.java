@@ -1,32 +1,12 @@
-
-
-public class EmptySquare implements Square {
-	private boolean revealed;
-	private int row;
-	private int column;
-	
-	public EmptySquare(int r, int c) {
-		revealed = false;
-		row = r;
-		column = c;
+public class EmptySquare extends NumberSquare {
+		
+	public EmptySquare(int r, int c){
+		super(r, c);
 	}
-	
+
 	@Override
 	public void reveal() {
-		revealed = true;
+		super.reveal();
 		//TODO reveal surrounding squares
 	}
-	@Override
-	public boolean isRevealed() {
-		return revealed;
-	}
-	@Override
-	public int getRow() {
-		return row;
-	}
-	@Override
-	public int getColumn() {
-		return column;
-	}
-
 }
