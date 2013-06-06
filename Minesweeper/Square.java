@@ -3,4 +3,5 @@ public interface Square {
 	public int getColumn();
 	public boolean isRevealed();
 	public int reveal();
+	public int getNum();
 }
