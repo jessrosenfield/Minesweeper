@@ -5,8 +5,14 @@ public class EmptySquare extends NumberSquare {
 	}
 
 	@Override
-	public void reveal() {
+	public int reveal() {
 		super.reveal();
 		//TODO reveal surrounding squares
+		return 0;
+	}
+	
+	@Override
+	public int getNum(){
+		return 0;
 	}
 }
