@@ -1,0 +1,18 @@
+ Jessica’s github link for project: https://github.com/jessrosenfield/Minesweeper
+
+oracle has good tutorials :)
+http://docs.oracle.com/javase/tutorial/uiswing/TOC.html
+http://docs.oracle.com/javase/tutorial/uiswing/components/index.html
+http://docs.oracle.com/javase/tutorial/uiswing/layout/index.html
+
+Background info on Minesweeper: 
+http://en.wikipedia.org/wiki/Minesweeper_(video_game)
+
+Java class libraries: http://en.wikipedia.org/wiki/Java_Class_Library
+AND
+http://en.wikipedia.org/wiki/Java_Platform,_Standard_Edition
+
+My code for JButtons and GridLayout:
+http://www.wikihow.com/Make-a-GUI-Grid-in-Java
+
+http://www.javaprogrammingforums.com/java-swing-tutorials/278-how-add-actionlistener-jbutton-swing.html
