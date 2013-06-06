@@ -10,11 +10,12 @@ public class MineSquare implements Square {
 	}
 	
 	@Override
-	public void reveal() {
+	public int reveal() {
 		revealed = true;
 		//TODO reveal all mines
 		//TODO loses game
 		//TODO end game
+		return -1;
 	}
 	@Override
 	public boolean isRevealed() {
@@ -27,6 +28,10 @@ public class MineSquare implements Square {
 	@Override
 	public int getColumn() {
 		return column;
+	}
+	@Override
+	public int getNum() {
+		return -1;
 	}
 
 }
