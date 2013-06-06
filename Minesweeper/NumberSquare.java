@@ -1,9 +1,3 @@
-
-
-/**
- * @author Jessica Rosenfield
- *
- */
 public class NumberSquare implements Square {
 	private boolean revealed;
 	private int row;
@@ -22,8 +16,9 @@ public class NumberSquare implements Square {
 	}
 	
 	@Override
-	public void reveal() {
+	public int reveal() {
 		revealed = true;
+		return squareNum;
 	}
 	@Override
 	public boolean isRevealed() {
