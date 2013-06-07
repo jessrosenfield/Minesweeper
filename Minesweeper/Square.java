@@ -12,8 +12,7 @@ public abstract class Square {
     }
 
     public int[] getRC() {
-        int[] RC = {row, column};
-        return RC;
+        return {row, column};
     }
 
     public boolean isRevealed() {
