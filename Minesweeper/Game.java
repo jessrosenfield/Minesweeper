@@ -1,6 +1,26 @@
 public class Game {
+	
+	/*LEVEL INFO*/
+	private int rows;
+ 	private int columns;
+ 	private int mines;
+	
+ 	public int getRows() {
+ 		return rows;
+ 	}
+ 	public int getColumns() {
+		return columns;
+	}
+	public int getMines() {
+		return mines;
+	}
+	public int[] getRC() {
+	return {rows, columns};
+	}
 	public enum Level {BEGINNER, ADVANCED, EXPERT, CUSTOM};
 	private Level level;
+	/*END LEVEL INFO*/
+	
 	
 	public Game(Level l) {
 		
@@ -35,6 +55,23 @@ public class Game {
 		static void main(String[] args){
 			Square[][] squares;
 		}
+	}
+	
+	private int rows;
+ 	private int columns;
+ 	private int mines;
+	
+ 	public int getRows() {
+ 		return rows;
+ 	}
+ 	public int getColumns() {
+		return columns;
+	}
+	public int getMines() {
+		return mines;
+	}
+	public int[] getRC() {
+	return {rows, columns};
 	}
 }
 
