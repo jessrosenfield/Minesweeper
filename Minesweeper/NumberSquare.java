@@ -32,4 +32,8 @@ public class NumberSquare implements Square {
 	public int getColumn() {
 		return column;
 	}
+	@Override
+	public int[] getRC() {
+		return {row, column};
+	}
 }
