@@ -5,7 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.io.IOException;
-public class ButtonGrid implements ActionListener
+public class ButtonGrid  implements ActionListener
 {
     JFrame frame = new JFrame("Minesweeper");
     JButton[][] grid;
@@ -65,3 +65,5 @@ public class ButtonGrid implements ActionListener
         new ButtonGrid(9,9);
     }
 }
+
+
