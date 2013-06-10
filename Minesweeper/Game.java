@@ -4,6 +4,7 @@ public class Game {
 	private int rows;
  	private int columns;
  	private int mines;
+ 	private int flags;
 	
  	public int getRows() {
  		return rows;
@@ -17,17 +18,36 @@ public class Game {
 	public int[] getRC() {
 	return {rows, columns};
 	}
+	public int getFlags() {
+		return flags;
+	}
 	public enum Level {BEGINNER, ADVANCED, EXPERT, CUSTOM};
 	private Level level;
+	private static Level lastLevel = BEGINNER;
+	private static int customRows;
+	private static int customColumns;
+	private static int customMines;
+	public int[] customInfo() {
+		return {customRows, customColumns, customMines};
+	}
 	/*END LEVEL INFO*/
 	
+	public Game() {
+		
+	}
 	
 	public Game(Level l) {
 		
-		}
+		
 	}
 	
-	public void levelSetter(Level l){
+	private Game(r, c, m) {
+		rows = r;
+		columns = c;
+		mines = m;
+	}
+	
+	private void levelSetter(Level l){
 		switch (l) {
 			case BEGINNER:
 				// TODO set beginner game parameters
@@ -54,25 +74,10 @@ public class Game {
 	private static class SquareSetup {
 		static void main(String[] args){
 			Square[][] squares;
+			
 		}
 	}
 	
-	private int rows;
- 	private int columns;
- 	private int mines;
-	
- 	public int getRows() {
- 		return rows;
- 	}
- 	public int getColumns() {
-		return columns;
-	}
-	public int getMines() {
-		return mines;
-	}
-	public int[] getRC() {
-	return {rows, columns};
-	}
 }
 
 	
