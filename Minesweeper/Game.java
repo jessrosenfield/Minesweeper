@@ -24,11 +24,9 @@ public class Game {
 	public enum Level {BEGINNER, ADVANCED, EXPERT, CUSTOM};
 	private Level level;
 	private static Level lastLevel = BEGINNER;
-	private static int customRows;
-	private static int customColumns;
-	private static int customMines;
-	public int[] customInfo() {
-		return {customRows, customColumns, customMines};
+	private static int [] customRCM
+	public int[] getCustomInfo() {
+		return customRCM;
 	}
 	/*END LEVEL INFO*/
 	
