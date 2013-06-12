@@ -3,6 +3,12 @@ public abstract class Square {
     private int row;
     private int column;
 
+    public Square(int r, int c) {
+        row = r;
+        column = c;
+        revealed = false;
+    }
+
     public int getRow() {
         return row;
     }
