@@ -1,4 +1,4 @@
-public class EmptySquare extends NumberSquare {
+public class EmptySquare extends Square {
 		
 	public EmptySquare(int r, int c){
 		super(r, c);
