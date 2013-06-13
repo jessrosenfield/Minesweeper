@@ -2,13 +2,15 @@ public abstract class Square {
     private boolean revealed;
     private int row;
     private int column;
-
-    public Square(int r, int c) {
+    private boolean flagged;
+    
+    Square(int r, int c) {
         row = r;
         column = c;
         revealed = false;
+        flagged = false;
     }
-
+    
     public int getRow() {
         return row;
     }
@@ -29,6 +31,11 @@ public abstract class Square {
     public int reveal() {
         revealed = true;
         return getNum();
+    }
+    
+    public void flag() {
+        flagged = !flagged;
+        //TODO integrate with counter and GUI
     }
 
     public abstract int getNum();
