@@ -19,7 +19,8 @@ public class Game {
     }
 
     public int[] getRC() {
-        return {rows, columns};
+        int[] RC = {rows, columns};
+        return RC;
     }
 
     public int getFlags() {
