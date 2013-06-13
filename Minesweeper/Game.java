@@ -38,6 +38,7 @@ public class Game {
         Game(lastLevel);   
     }
     public Game(Level l) {
-        levelSetter(l);
+        level = l;
+        lastLevel = l;
     }
 }
