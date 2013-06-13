@@ -1,84 +1,43 @@
-public class Game {
-
-    /*LEVEL INFO*/
-    private int rows;
-    private int columns;
-    private int mines;
-    private int flags;
-
-    public int getRows() {
-        return rows;
-    }
-
-    public int getColumns() {
-        return columns;
-    }
-
-    public int getMines() {
-        return mines;
-    }
-
-    public int[] getRC() {
-        int[] RC = {rows, columns};
-        return RC;
-    }
-
-    public int getFlags() {
-        return flags;
-    }
+import java.util.Scanner;
+public enum Level {
+    BEGINNER    (9, 9, 10), 
+    ADVANCED    (16, 16, 40), 
+    EXPERT      (16, 30, 99),
+    CUSTOM      ();
+    public final int rows;
+    public final int columns;
+    public final int mines;
     
-    public enum Level {BEGINNER, ADVANCED, EXPERT, CUSTOM};
-    private Level level;
-    private static Level lastLevel = BEGINNER;
-    private static int [] customRCM
-    public int[] getCustomInfo() {
-        return customRCM;
-    }
-
-    /*END LEVEL INFO*/
-
-    public Game() {
-
-    }
-
-    public Game(Level l) {
-        levelSetter(l)
-    }
-    private Game(int r, int c, int m) {
+    Level(int r, int c, int m) {
         rows = r;
         columns = c;
         mines = m;
     }
-
-    private void levelSetter(Level l){
-        switch (l) {
-            case BEGINNER:
-            Game(9, 9, 10)
-            break;
-
-            case ADVANCED:
-            // TODO set advanced game parameters
-            break;
-
-            case EXPERT:
-            // TODO set expert game parameters
-            break;
-
-            case CUSTOM:
-            // TODO collect custom game parameters
-            // TODO set custom game parameters
-            break;
-
-            case default:
-            // TODO setup static variable for level last played (initially beginner?)
-            // TODO get last level and impliment it
-        }
+    
+    Level(){
+        rows = getInt();
+        columns = getInt();
+        mines = getInt();
     }
-    private static class SquareSetup {
-        static void main(String[] args){
-            Square[][] squares;
-
-        }
+    
+    int getInt() {
+        Scanner scan = new Scanner(System.in);
+        int i = scan.nextInt();
+        return i;
     }
+}
 
+public class Game {
+    /*LEVEL INFO*/
+    private Level level;
+    private static Level lastLevel = BEGINNER;
+    private static int [] customRCM;
+    public int flags;
+
+    public Game() {
+        Game(lastLevel);   
+    }
+    public Game(Level l) {
+        levelSetter(l);
+    }
 }
