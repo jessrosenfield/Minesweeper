@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Game {
     
     public static enum Level {
@@ -25,6 +27,7 @@ public class Game {
     private Square[][] squares; //the grid of squares
 
 /*******************************************************************************************/
+    
     public Game(Level l) {
         level = l;
         lastLevel = l;
@@ -34,15 +37,14 @@ public class Game {
     
     public Game() {
         Game(lastLevel);
-    }
-    
+    }    
     
 /********************************************************************************************/    
         
     public void placeSquares() {
         for(int r = 0; r < level.rows; r++)
             for(int c = 0; c < level.columns; c++)
-                Square[r][c] = new emptySquare(r, c);
+                Squares[r][c] = new emptySquare(r, c);
     }
     
     private boolean badNums(ArrayList<Square> sq, int r, int c) {
@@ -54,15 +56,16 @@ public class Game {
     }
     
     private ArrayList<Square> surroundings(int r, int c) {
-        
+        //beautiful code goes here
     }
     
     private void placeNums(int r, int c) {
         ArrayList<Square> neighbors = surroundings(r, c);
         for (Square s : neighbors) {
-            if(s instanceOf emptySquare) 
-                s = new numberSquare( s.getRow(), s.getCol() );
-            
+            if(s instanceof numberSquare)
+                s.addNum();
+            if(s instanceof emptySquare) 
+                Squares[r][c] = new numberSquare( s.getRow(), s.getCol() );            
         }
     }
     
