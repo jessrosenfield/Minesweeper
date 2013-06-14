@@ -56,7 +56,18 @@ public class Game {
     }
     
     private ArrayList<Square> surroundings(int r, int c) {
-        //beautiful code goes here
+        ArrayList<Square> neighbors = new ArrayList<Square>();
+        int[] rs = {r-1, r, r+1};
+        int[] cs = {c-1, c, c+1};
+        for(int i : rs) {
+            for(int j : cs) {
+                try {
+                    neighbors.add(Squares[i][j];
+                }
+                catch(ArrayIndexOutOfBoundsException e) {}
+            }
+        }
+        return neighbors;        
     }
     
     private void placeNums(int r, int c) {
@@ -64,8 +75,9 @@ public class Game {
         for (Square s : neighbors) {
             if(s instanceof numberSquare)
                 s.addNum();
-            if(s instanceof emptySquare) 
-                Squares[r][c] = new numberSquare( s.getRow(), s.getCol() );            
+            if(s instanceof emptySquare) { 
+                Squares[s.getRow()][s.getCol()] = new numberSquare( s.getRow(), s.getCol() );            
+            }
         }
     }
     
@@ -94,6 +106,5 @@ public class Game {
         int c = fs.getColumn;
         levelSetup(r, c);
     }
-    
-    
+        
 }
