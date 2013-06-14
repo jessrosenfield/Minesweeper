@@ -45,7 +45,7 @@ public class Game {
                 Square[r][c] = new emptySquare(r, c);
     }
     
-    private boolean badNums(Square[] sq, int r, int c) {
+    private boolean badNums(ArrayList<Square> sq, int r, int c) {
         for(Square s : sq) {
             if(s.getRow == r && s.getColumn == c)
                 return true;
@@ -58,10 +58,8 @@ public class Game {
     }
     
     public void levelSetup(int row, int col) {
-        Square[] offLim = new Square[mines+6]
-        int counter = 0;
-        offLim[0] = Squares[row][col];
-        counter++;
+        ArrayList<Square> offLim = new ArrayList<Square>;
+        offLim.add(Squares[row][col]);
         
         for(int m = 0; m < level.mines; m++) {
             int i; int j;
@@ -72,9 +70,8 @@ public class Game {
             } while( badNums(offLim, i, j) );
             
             Squares[i][j] = new mineSquare(i, j);
-            offLim[counter] = Squares[i][j];
-            counter++;
-                )
+            offLim.add(Squares[i][j]);
+            
         }
         
     }
