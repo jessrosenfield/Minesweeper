@@ -53,8 +53,17 @@ public class Game {
         return false;
     }
     
-    private Squares[] surroundings() {
+    private ArrayList<Square> surroundings(int r, int c) {
         
+    }
+    
+    private void placeNums(int r, int c) {
+        ArrayList<Square> neighbors = surroundings(r, c);
+        for (Square s : neighbors) {
+            if(s instanceOf emptySquare) 
+                s = new numberSquare( s.getRow(), s.getCol() );
+            
+        }
     }
     
     public void levelSetup(int row, int col) {
@@ -71,7 +80,7 @@ public class Game {
             
             Squares[i][j] = new mineSquare(i, j);
             offLim.add(Squares[i][j]);
-            
+            placeNums(i, j);
         }
         
     }
