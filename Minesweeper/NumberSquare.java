@@ -6,6 +6,10 @@ public class NumberSquare implements Square {
 		squareNum = sqNum;
 	}
 	
+	public NumberSquare(int r, int c) {
+		NumberSquare(r, c, 1);
+	}
+	
 	@Override
 	public int getNum() {
 		return squareNum;
