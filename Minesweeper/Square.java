@@ -1,4 +1,4 @@
-public abstract class Square {
+public class Square {
     private boolean revealed;
     private int row;
     private int column;
@@ -33,5 +33,7 @@ public abstract class Square {
         //TODO integrate with counter and GUI
     }
 
-    public abstract int getNum();
+    public int getNum() {
+        return 0;
+    }
 }
