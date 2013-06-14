@@ -1,4 +1,4 @@
-apcs
-====
+MINESWEEPER
+========
 
-Mainly for Minesweeper
+An ambitious project for me, Akhil and Teja
