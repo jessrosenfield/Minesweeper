@@ -13,9 +13,8 @@ public class Game {
             mines = m;
         }
     }
-    private Level level;
+    public final Level level;
     private static Level lastLevel = Level.BEGINNER;
-    private static int [] customRCM;
     public int flags; 
 
     public Game(Level l) {
