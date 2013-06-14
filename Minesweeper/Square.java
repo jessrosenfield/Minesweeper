@@ -15,7 +15,7 @@ public class Square {
         return row;
     }
 
-    public int getColumn() {
+    public int getCol() {
         return column;
     }
 
