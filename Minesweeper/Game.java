@@ -15,14 +15,17 @@ public class Game {
     }
     public final Level level;
     private static Level lastLevel = Level.BEGINNER;
-    public int flags; 
+    public int flags;
+    private Square[][] squares;
 
     public Game(Level l) {
         level = l;
         lastLevel = l;
+        squares = new Square[l.rows][l.columns]
     }
     
     public Game() {
         level = lastLevel;
+        squares = new Square[lastLevel.rows][lastLevel.columns]
     }
 }
