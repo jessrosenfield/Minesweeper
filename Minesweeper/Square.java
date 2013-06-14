@@ -19,11 +19,6 @@ public abstract class Square {
         return column;
     }
 
-    public int[] getRC() {
-        int[] RC = {row, column};
-        return RC;
-    }
-
     public boolean isRevealed() {
         return revealed;
     }
