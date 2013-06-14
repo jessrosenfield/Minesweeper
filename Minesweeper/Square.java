@@ -34,6 +34,6 @@ public class Square {
     }
 
     public int getNum() {
-        return 0;
+        return null;
     }
 }
