@@ -59,12 +59,12 @@ public class Game {
         ArrayList<Square> neighbors = new ArrayList<Square>();
         int[] rs = {r-1, r, r+1};
         int[] cs = {c-1, c, c+1};
+        
         for(int i : rs) {
             for(int j : cs) {
-                try {
-                    neighbors.add(Squares[i][j];
+            if(i >= 0 && j >= 0 && i < squares.length && j < squares[1].length){
+                    neighbors.add(squares[i][j]);
                 }
-                catch(ArrayIndexOutOfBoundsException e) {}
             }
         }
         return neighbors;        
