@@ -1,4 +1,4 @@
-public class NumberSquare implements Square {
+public class NumberSquare extends Square {
 	private int squareNum;
 	
 	public NumberSquare(int r, int c, int sqNum) {
@@ -7,7 +7,7 @@ public class NumberSquare implements Square {
 	}
 	
 	public NumberSquare(int r, int c) {
-		NumberSquare(r, c, 1);
+		this(r, c, 1);
 	}
 	
 	@Override

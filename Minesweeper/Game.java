@@ -19,8 +19,7 @@ public class Game {
     
     public final Level level;
     
-    private static Level lastLevel; //default constructor uses the same level as before.
-    lastLevel = Level.BEGINNER; //sets lastLevel to beginner in case there was no previous game
+    private static Level lastLevel = Level.BEGINNER; //sets lastLevel to beginner in case there was no previous game
     
     public int flags;   //to be used with counter of mines left
     
@@ -31,12 +30,12 @@ public class Game {
     public Game(Level l) {
         level = l;
         lastLevel = l;
-        squares = new Square[l.rows][l.columns]
+        squares = new Square[l.rows][l.columns];
         placeSquares();
     }
     
     public Game() {
-        Game(lastLevel);
+        this(lastLevel);
     }    
     
 /********************************************************************************************/    
@@ -44,12 +43,12 @@ public class Game {
     public void placeSquares() {
         for(int r = 0; r < level.rows; r++)
             for(int c = 0; c < level.columns; c++)
-                Squares[r][c] = new emptySquare(r, c);
+                squares[r][c] = new EmptySquare(r, c);
     }
     
     private boolean badNums(ArrayList<Square> sq, int r, int c) {
         for(Square s : sq) {
-            if(s.getRow == r && s.getColumn == c)
+            if(s.getRow() == r && s.getCol() == c)
                 return true;
         }
         return false;
@@ -73,28 +72,28 @@ public class Game {
     private void placeNums(int r, int c) {
         ArrayList<Square> neighbors = surroundings(r, c);
         for (Square s : neighbors) {
-            if(s instanceof numberSquare)
-                s.addNum();
-            if(s instanceof emptySquare) { 
-                Squares[s.getRow()][s.getCol()] = new numberSquare( s.getRow(), s.getCol() );            
+            if(s instanceof NumberSquare)
+                ((NumberSquare) s).addNum();
+            if(s instanceof EmptySquare) { 
+                squares[s.getRow()][s.getCol()] = new NumberSquare( s.getRow(), s.getCol() );            
             }
         }
     }
     
     public void levelSetup(int row, int col) {
-        ArrayList<Square> offLim = new ArrayList<Square>;
-        offLim.add(Squares[row][col]);
+        ArrayList<Square> offLim = new ArrayList<Square>();
+        offLim.add(squares[row][col]);
         
         for(int m = 0; m < level.mines; m++) {
             int i; int j;
             
             do {
-                i = Math.random()*rows;
-                j = Math.random()*columns
+                i = (int)(Math.random()*level.rows);
+                j = (int)(Math.random()*level.columns);
             } while( badNums(offLim, i, j) );
             
-            Squares[i][j] = new mineSquare(i, j);
-            offLim.add(Squares[i][j]);
+            squares[i][j] = new MineSquare(i, j);
+            offLim.add(squares[i][j]);
             placeNums(i, j);
         }
         
@@ -103,7 +102,7 @@ public class Game {
     public void levelSetup(Square firstSquare) {
         Square fs = firstSquare;
         int r = fs.getRow();
-        int c = fs.getColumn;
+        int c = fs.getCol();
         levelSetup(r, c);
     }
         
