@@ -1,15 +1,9 @@
 import javax.imageio.*;
-
 import java.awt.event.ActionListener;
-
 import java.awt.event.ActionEvent;
-
 import java.awt.*;
-
 import javax.swing.*;
-
 import javax.swing.border.*;
-
 import java.io.IOException;
 
 public class noframegrid extends JPanel implements ActionListener
