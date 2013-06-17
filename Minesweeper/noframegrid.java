@@ -10,8 +10,12 @@ public class noframegrid extends JPanel implements ActionListener
 {
 	static JPanel panel = new JPanel();
 	JButton[][] grid;
-	public noframegrid(int width, int length)
+	int width;
+	int length;
+	public noframegrid(int w, int l)
 	{
+		width = w;
+		length = l;
 		setLayout(new GridLayout(width,length));
 		grid = new JButton[width][length];
 		//panel.setResizable(false);
@@ -30,7 +34,7 @@ public class noframegrid extends JPanel implements ActionListener
 		ImageIcon imgi=null;
 		//panel.pack(); 
 		setVisible(true);
-		setSize(new Dimension(500,500));
+		setSize(new Dimension(56*width,56*length));
 		try {
 			img = ImageIO.read(getClass().getResource("Stone.png"));
 			imgi = new ImageIcon(img);
@@ -67,6 +71,6 @@ public class noframegrid extends JPanel implements ActionListener
 
 	public static void main(String[] args)
 	{
-		new noframegrid(9,9);
+		new noframegrid(9, 9);
 	}
 }

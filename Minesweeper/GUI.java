@@ -44,9 +44,12 @@ public class GUI
        JFrame frame = new JFrame("Minesweeper");
        //noframegrid bpanel = new noframegrid(9, 9);
        ControlPanel cpanel = new ControlPanel();
-       noframegrid bpanel = new noframegrid(9, 9);
+       Game game = new Game(Level.ADVANCED);
+       int rows = game.level.rows;
+       int cols = game.level.columns;
+       noframegrid bpanel = new noframegrid(rows, cols);
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-       frame.setPreferredSize(new Dimension(500, 600));       
+       frame.setPreferredSize(new Dimension(56*rows, 56*cols+100));       
        frame.setLocationRelativeTo(null); 
        frame.add(bpanel, BorderLayout.NORTH);
        frame.add(cpanel, BorderLayout.NORTH);
