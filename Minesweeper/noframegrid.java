@@ -34,7 +34,7 @@ public class noframegrid extends JPanel implements ActionListener
 		ImageIcon imgi=null;
 		//panel.pack(); 
 		setVisible(true);
-		setSize(new Dimension(56*width,56*length));
+		setSize(new Dimension(25*width,25*length));
 		try {
 			img = ImageIO.read(getClass().getResource("Stone.png"));
 			imgi = new ImageIcon(img);

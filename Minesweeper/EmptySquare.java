@@ -7,7 +7,6 @@ public class EmptySquare extends Square {
 	@Override
 	public int reveal() {
 		super.reveal();
-		//TODO reveal surrounding squares
 		return 0;
 	}
 	

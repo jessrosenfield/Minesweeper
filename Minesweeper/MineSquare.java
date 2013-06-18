@@ -7,9 +7,6 @@ public class MineSquare extends Square {
 	@Override
 	public int reveal() {
 		super.reveal();
-		//TODO reveal all mines
-		//TODO loses game
-		//TODO end game
 		return -1;
 	}
 	@Override

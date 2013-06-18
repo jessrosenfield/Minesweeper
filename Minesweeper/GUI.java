@@ -37,19 +37,17 @@ public class GUI
 import java.awt.*;
 import javax.swing.*; 
 public class GUI
-//setPreferredSize(new Dimension(200, 300)
 {
    private static JFrame createWindow()
    {
        JFrame frame = new JFrame("Minesweeper");
-       //noframegrid bpanel = new noframegrid(9, 9);
        ControlPanel cpanel = new ControlPanel();
-       Game game = new Game(Level.ADVANCED);
+       Game game = new Game();
        int rows = game.level.rows;
        int cols = game.level.columns;
        noframegrid bpanel = new noframegrid(rows, cols);
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-       frame.setPreferredSize(new Dimension(56*rows, 56*cols+100));       
+       frame.setPreferredSize(new Dimension(26*rows, 26*cols+100));       
        frame.setLocationRelativeTo(null); 
        frame.add(bpanel, BorderLayout.NORTH);
        frame.add(cpanel, BorderLayout.NORTH);

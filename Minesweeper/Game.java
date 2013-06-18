@@ -9,13 +9,16 @@ public class Game {
     public int flags;   //to be used with counter of mines left
     
     private Square[][] squares; //the grid of squares
+    
+    private ArrayList<Square> mines;
 
 /*******************************************************************************************/
     
     public Game(Level l) {
         level = l;
         lastLevel = l;
-        squares = new Square[l.rows][l.columns];
+        squares = new Square[level.rows][level.columns];
+        mines = new ArrayList<Square>();
         placeSquares();
     }
     
@@ -38,7 +41,6 @@ public class Game {
         }
         return false;
     }
-    
     private ArrayList<Square> surroundings(int r, int c) {
         ArrayList<Square> neighbors = new ArrayList<Square>();
         int[] rs = {r-1, r, r+1};
@@ -46,14 +48,18 @@ public class Game {
         
         for(int i : rs) {
             for(int j : cs) {
-            if(i >= 0 && j >= 0 && i < squares.length && j < squares[1].length){
+            if( 
+    		(i >= 0 && j >= 0 && i < squares.length && j < squares[1].length)
+    		&&(i!=r || j!=c)){
                     neighbors.add(squares[i][j]);
                 }
             }
         }
         return neighbors;        
     }
-    
+    private ArrayList<Square> surroundings(Square sq) {
+    	return surroundings(sq.getRow(), sq.getCol());
+    }
     private void placeNums(int r, int c) {
         ArrayList<Square> neighbors = surroundings(r, c);
         for (Square s : neighbors) {
@@ -79,9 +85,14 @@ public class Game {
             
             squares[i][j] = new MineSquare(i, j);
             offLim.add(squares[i][j]);
+            mines.add(squares[i][j]);
             placeNums(i, j);
         }
         
+    }
+    
+    public ArrayList<Square> getMines() {
+    	return mines;
     }
     
     public void levelSetup(Square firstSquare) {
@@ -90,5 +101,33 @@ public class Game {
         int c = fs.getCol();
         levelSetup(r, c);
     }
-        
+    
+    public int reveal(EmptySquare eSq) {
+    	eSq.reveal();
+    	for(Square sq : surroundings(eSq))
+    		reveal(sq);
+    	return 0;
+    }
+    
+    public int reveal(MineSquare mSq) {
+    	return mSq.reveal();
+    }
+    
+    public int reveal(NumberSquare nSq) {
+    	return nSq.reveal();
+    }
+    
+    private int reveal(Square sq) {
+		if(sq instanceof EmptySquare)
+			return reveal((EmptySquare)sq);
+		if(sq instanceof NumberSquare)
+			return reveal((NumberSquare)sq);
+		if(sq instanceof MineSquare)
+			return reveal((MineSquare)sq);
+		return (Integer)null;
+	}
+    
+    public int reveal(int r, int c) {
+    	return reveal(squares[r][c]);
+    }
 }
