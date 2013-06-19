@@ -56,6 +56,7 @@ public class Game {
         }
         return false;
     }
+    
     /**
      * surroundings returns all of the squares surrounding the square in the location of the parameter
      * @param r	the row of the square
@@ -138,6 +139,9 @@ public class Game {
 		return (Integer)null;
 	}
 
+    public Square getsq(int r, int c) {
+    	return squares[r][c];
+    }
 
 /*---------------------------------JESSICA GOES CRAZY WITH POLYMORPHISM ;)-----------------------------*/
 // (SHE TOUGHT IT WOULD COME IN HANDY BUT IT PROBABLY WON'T)
