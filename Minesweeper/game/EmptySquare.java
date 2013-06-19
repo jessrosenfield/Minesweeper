@@ -1,3 +1,6 @@
+package game;
+
+
 public class EmptySquare extends Square {
 		
 	public EmptySquare(int r, int c){

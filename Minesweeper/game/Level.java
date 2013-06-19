@@ -1,3 +1,4 @@
+package game;
 public enum Level {
 	BEGINNER    (9, 9, 10), 
 	ADVANCED    (16, 16, 40), 

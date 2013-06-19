@@ -1,3 +1,4 @@
+package game;
 public class NumberSquare extends Square {
 	private int squareNum;
 	

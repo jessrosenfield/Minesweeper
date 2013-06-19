@@ -1,3 +1,4 @@
+package game;
 public class MineSquare extends Square {
 	
 	public MineSquare(int r, int c) {

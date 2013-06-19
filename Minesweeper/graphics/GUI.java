@@ -1,3 +1,4 @@
+package graphics;
 /*import java.awt.*;
 import javax.swing.*; 
 public class GUI
@@ -34,8 +35,12 @@ public class GUI
 
 
 */
+
+import game.Game;
+
 import java.awt.*;
 import javax.swing.*; 
+
 public class GUI
 {
    private static JFrame createWindow()

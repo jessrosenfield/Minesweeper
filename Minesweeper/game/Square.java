@@ -1,3 +1,4 @@
+package game;
 public class Square {
     private boolean revealed;
     private int row;
