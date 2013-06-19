@@ -73,10 +73,7 @@ public class Game {
         }
         return neighbors;        
     }
-    private ArrayList<Square> surroundings(Square sq) {
-    	return surroundings(sq.getRow(), sq.getCol());
-    }
-    
+        
     /**
      * placeNums takes he row and column of the mine being placed
      * and adds a number the each of the squares surrounding it to account for the mine
@@ -126,11 +123,29 @@ public class Game {
     	return mines;
     }
     
+    public int reveal(Square sq) {
+		if(sq instanceof EmptySquare)
+			return reveal((EmptySquare)sq);
+		if(sq instanceof NumberSquare)
+			return reveal((NumberSquare)sq);
+		if(sq instanceof MineSquare)
+			return reveal((MineSquare)sq);
+		return (Integer)null;
+	}
+
+
+/*---------------------------------JESSICA GOES CRAZY WITH POLYMORPHISM ;)-----------------------------*/
+// (SHE TOUGHT IT WOULD COME IN HANDY BUT IT PROBABLY WON'T)
+
     public void levelSetup(Square firstSquare) {
         Square fs = firstSquare;
         int r = fs.getRow();
         int c = fs.getCol();
         levelSetup(r, c);
+    }
+    
+    private ArrayList<Square> surroundings(Square sq) {
+    	return surroundings(sq.getRow(), sq.getCol());
     }
     
     public int reveal(EmptySquare eSq) {
@@ -147,18 +162,10 @@ public class Game {
     public int reveal(NumberSquare nSq) {
     	return nSq.reveal();
     }
-    
-    private int reveal(Square sq) {
-		if(sq instanceof EmptySquare)
-			return reveal((EmptySquare)sq);
-		if(sq instanceof NumberSquare)
-			return reveal((NumberSquare)sq);
-		if(sq instanceof MineSquare)
-			return reveal((MineSquare)sq);
-		return (Integer)null;
-	}
-    
+           
     public int reveal(int r, int c) {
     	return reveal(squares[r][c]);
     }
+    
+   
 }
