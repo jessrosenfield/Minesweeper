@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * Game class creates the setup for the game
+ * and has methods for revealing squares that depend on what type of square it is
+ **/
 public class Game {
       
     public final Level level;
