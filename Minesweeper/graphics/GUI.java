@@ -10,15 +10,14 @@ import javax.swing.*;
 @SuppressWarnings("unused")
 public class GUI
 {
-   private static JFrame createWindow()
-   {
+   private static JFrame createWindow() {
        JFrame frame = new JFrame("Minesweeper");
        Game game = new Game();
        int rows = game.level.rows;
        int cols = game.level.columns;
-       noframegrid bpanel = new noframegrid(game, rows, cols);
+       ButtonGrid bpanel = new ButtonGrid(game, rows, cols);
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-       frame.setPreferredSize(new Dimension(26*rows, 26*cols+100));       
+       frame.setPreferredSize(new Dimension(35*rows, 35*cols+100));       
        frame.setLocationRelativeTo(null); 
        frame.add(bpanel, BorderLayout.NORTH);
        frame.setResizable(false);
@@ -26,8 +25,12 @@ public class GUI
        frame.setVisible(true);
        return frame;
    }
-   public static void main(String[] args)
-   {
+   
+   public static void newGame() {
+	   //TODO make new game menu
+   }
+   
+   public static void main(String[] args) {
       createWindow();
    }
 } 

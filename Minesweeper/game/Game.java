@@ -153,7 +153,7 @@ public class Game {
         levelSetup(r, c);
     }
     
-    private ArrayList<Square> surroundings(Square sq) {
+    public ArrayList<Square> surroundings(Square sq) {
     	return surroundings(sq.getRow(), sq.getCol());
     }
     
