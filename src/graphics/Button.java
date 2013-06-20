@@ -10,8 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-import com.sun.medialib.mlib.Image;
-
 
 @SuppressWarnings("unused")
 public class Button {
