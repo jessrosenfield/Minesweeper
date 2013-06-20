@@ -15,7 +15,7 @@ public class GUI
        Game game = new Game();
        int rows = game.level.rows;
        int cols = game.level.columns;
-       ButtonGrid bpanel = new ButtonGrid(game, rows, cols);
+       ButtonGrid bpanel = new ButtonGrid(game);
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
        frame.setPreferredSize(new Dimension(35*rows, 35*cols+100));       
        frame.setLocationRelativeTo(null); 
@@ -25,11 +25,7 @@ public class GUI
        frame.setVisible(true);
        return frame;
    }
-   
-   public static void newGame() {
-	   //TODO make new game menu
-   }
-   
+      
    public static void main(String[] args) {
       createWindow();
    }

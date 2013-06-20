@@ -16,10 +16,10 @@ public class ButtonGrid extends JPanel implements ActionListener {
 	int length;
 	Game game;
 	
-	public ButtonGrid(Game g, int w, int l) {
-		width = w;
-		length = l;
+	public ButtonGrid(Game g) {
 		game = g;
+		width = game.level.rows;
+		length = game.level.columns;
 		setLayout(new GridLayout(width,length));
 		bGrid = new Button[width][length];
 		grid = new JButton[width][length];
@@ -55,7 +55,6 @@ public class ButtonGrid extends JPanel implements ActionListener {
 				int r = sq.getRow();
 				int c = sq.getCol();
 				grid[r][c] = bGrid[r][c].getJB();
-				GUI.newGame();
 			}
 		
 	}
