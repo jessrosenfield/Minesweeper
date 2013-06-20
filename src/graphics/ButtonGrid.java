@@ -27,7 +27,9 @@ public class ButtonGrid extends JPanel implements ActionListener {
 			for(int x = 0; x < width; x++) {
 				try {
 					bGrid[x][y] = new Button(game.getsq(x, y));
-					grid[x][y] = bGrid[x][y].getJB();
+					JButton b = bGrid[x][y].getJB();
+					b.setActionCommand(y+","+x);
+					grid[x][y] = b;
 					grid[x][y].addActionListener(this);
 					add(grid[x][y]);
 				} catch (Exception e) {
@@ -65,6 +67,8 @@ public class ButtonGrid extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-//		arg0.getSource()
+		String s = arg0.getActionCommand();
+		this.click(Integer.parseInt(s.substring(0, 1)), Integer.parseInt(s.substring(2, 3)));
+		
 	}
 }
