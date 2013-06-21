@@ -71,7 +71,7 @@ public class Game {
 		for(int i : rs) {
 			for(int j : cs) {
 				if( (i >= 0 && j >= 0 && i < squares.length && j < squares[1].length)
-				    && (i!=r && j!=c) )
+						&& (i!=r && j!=c) )
 					neighbors.add(squares[i][j]);
 			}
 		}
@@ -132,19 +132,24 @@ public class Game {
 	}
 
 	public int reveal(Square sq) {
-		if(sq instanceof EmptySquare)
-			return reveal((EmptySquare)sq);
-		if(sq instanceof NumberSquare)
-			return reveal((NumberSquare)sq);
-		if(sq instanceof MineSquare)
-			return reveal((MineSquare)sq);
-		if(sq instanceof Square) {
-			int r = sq.getRow();
-			int c = sq.getCol();
-			levelSetup(r, c);
-			reveal(r, c);
+		
+		if( !sq.isRevealed() ) {
+			if(sq instanceof EmptySquare)
+				return reveal((EmptySquare)sq);
+			if(sq instanceof NumberSquare)
+				return reveal((NumberSquare)sq);
+			if(sq instanceof MineSquare)
+				return reveal((MineSquare)sq);
+			if(sq instanceof Square) {
+				int r = sq.getRow();
+				int c = sq.getCol();
+				levelSetup(r, c);
+				return reveal(r, c);
+			}
+			return -5;
 		}
-		return (Integer)null;
+		else
+			return -5;
 	}
 
 	public Square getsq(int r, int c) {
