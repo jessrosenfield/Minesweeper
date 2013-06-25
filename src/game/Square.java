@@ -4,12 +4,19 @@ public class Square {
     private int row;
     private int column;
     private boolean flagged;
+    private int squareNum;
+    private boolean mine;
     
-    Square(int r, int c) {
+    Square(int r, int c, boolean m) {
         row = r;
         column = c;
         revealed = false;
         flagged = false;
+        mine = m;
+        if(mine)
+            squareNum = -1;
+        else
+        	squareNum = 0;
     }
     
     public int getRow() {
@@ -26,6 +33,7 @@ public class Square {
 
     public int reveal() {
         revealed = true;
+        flagged = false;
         return getNum();
     }
     
@@ -36,9 +44,20 @@ public class Square {
     public boolean isFlagged() {
     	return flagged;
     }
+    
+    public boolean isMine() {
+    	return mine;
+    }
 
     public int getNum() {
-        int i = 100;
-    	return i;
+        return squareNum;
+    }
+    
+    public void addNum() {
+    	squareNum++;
+    }
+    
+    public void firstMine() {
+    	squareNum = -2;
     }
 }
