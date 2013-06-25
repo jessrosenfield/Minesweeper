@@ -31,10 +31,9 @@ public class Square {
         return revealed;
     }
 
-    public int reveal() {
+    public void reveal() {
         revealed = true;
         flagged = false;
-        return getNum();
     }
     
     public void flag() {
