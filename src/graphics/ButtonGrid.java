@@ -2,7 +2,9 @@ package graphics;
 
 import java.awt.*;
 import javax.swing.*;
+
 import game.*;
+
 import javax.imageio.ImageIO;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -10,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-@SuppressWarnings({ "serial", "unused" })
+@SuppressWarnings({ "serial" })
 public class ButtonGrid extends JPanel {
 	public JPanel panel = new JPanel();
 	private MButton[][] grid;
@@ -47,7 +49,7 @@ public class ButtonGrid extends JPanel {
 	public int getLength() {
 		return length;
 	}
-	
+
 	public Game getGame() {
 		return game;
 	}
@@ -55,7 +57,15 @@ public class ButtonGrid extends JPanel {
 	public JPanel returnPanel() {
 		return panel;
 	}
-
+	
+	
+	
+	
+	
+	
+	
+	
+	/*----------MButton----------*/
 	public class MButton extends JButton implements ActionListener {
 		Square square;
 		private int row;
@@ -75,9 +85,9 @@ public class ButtonGrid extends JPanel {
 			super.setPreferredSize(new Dimension(35,35));
 			super.setIcon(mine1());
 		}
-		
+
 		public void update() {
-			square = getGame().getsq(row, col);
+			//square = getGame().getsq(row, col);
 			setIcon();
 		}
 
@@ -139,11 +149,11 @@ public class ButtonGrid extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			getGame().reveal(row, col);
+			//getGame().reveal(row, col);
 			update();
 		}
 
-		
+
 		/*------------IMAGES----------*/
 		private ImageIcon blue(){
 			BufferedImage BI = null;
@@ -263,5 +273,4 @@ public class ButtonGrid extends JPanel {
 			return new ImageIcon(BI);
 		}
 	}
-
 }
