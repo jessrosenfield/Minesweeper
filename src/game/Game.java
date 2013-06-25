@@ -9,13 +9,15 @@ public class Game {
 
 	public final Level level;
 
+	private boolean setup;
+
 	private static Level lastLevel = Level.BEGINNER; //sets lastLevel to beginner in case there was no previous game
 
 	public int flags;   //to be used with counter of mines left
 
 	private Square[][] squares; //the grid of squares
 
-	private ArrayList<MineSquare> mines;	//keeps track of all of the squares that are mines
+	private ArrayList<Square> mines;	//keeps track of all of the squares that are mines
 
 	/*******************************************************************************************/
 
@@ -23,8 +25,9 @@ public class Game {
 		level = l;
 		lastLevel = l;
 		squares = new Square[level.rows][level.columns];
-		mines = new ArrayList<MineSquare>();
+		mines = new ArrayList<Square>();
 		placeSquares();
+		setup = false;
 	}
 
 	//the default constructor uses the last level used as the level for the new game
@@ -35,7 +38,7 @@ public class Game {
 	public void placeSquares() {
 		for(int r = 0; r < level.rows; r++)
 			for(int c = 0; c < level.columns; c++)
-				squares[r][c] = new Square(r, c);
+				squares[r][c] = new Square(r, c, false);
 	}
 
 	/********************************************************************************************/       
@@ -71,7 +74,7 @@ public class Game {
 		for(int i : rs) {
 			for(int j : cs) {
 				if( (i >= 0 && j >= 0 && i < squares.length && j < squares[1].length)
-						&& (i!=r && j!=c) )
+						&& (i!=r || j!=c) )
 					neighbors.add(squares[i][j]);
 			}
 		}
@@ -80,37 +83,29 @@ public class Game {
 
 	/**
 	 * placeNums takes he row and column of the mine being placed
-	 * and adds a number the each of the squares surrounding it to account for the mine
-	 * If a surrounding square is an EmptySquare it will change it into a Number Square
-	 * If it is a NumberSquare it calls the method to add one to its number
-	 * If it is already a mine it leaves it alone.
+	 * and tests the squares surrounding it if they are mines
+	 * if they are not, their number is incremented by one
+	 * 
 	 * @param r 	row of the mine to be placed
 	 * @param c 	column of mine to be place
 	 */
 	private void placeNums(int r, int c) {
 		ArrayList<Square> neighbors = surroundings(r, c);
 		for (Square s : neighbors) {
-			if(s instanceof NumberSquare)
-				((NumberSquare) s).addNum();
-			if(s instanceof EmptySquare) { 
-				squares[s.getRow()][s.getCol()] = new NumberSquare( s.getRow(), s.getCol() );            
-			}
+			if(!s.isMine())
+				s.addNum();
 		}
 	}
+
 
 	/**
 	 * levelSetup places all of the mines and calls other methods to place the numbers and prevent errors 
 	 * @param row	row of the first square that was clicked
 	 * @param col	column of the first square that was clicked
 	 */
-	public void levelSetup(int row, int col) {
-		for(int i = 0; i < level.rows; i++)
-			for(int j = 0; j < level.columns; j++) {
-				squares[i][j] = new EmptySquare(i, j);
-			}
+	private void levelSetup(int row, int col) {
 		ArrayList<Square> offLim = new ArrayList<Square>();	//makes an arraylist of squares not to be messed with
 		offLim.add(squares[row][col]);	//adds first square to offLim to make sure it stays an EmptySquare
-
 		for(int m = 0; m < level.mines; m++) {
 			int i; int j;
 
@@ -119,41 +114,51 @@ public class Game {
 				j = (int)(Math.random()*level.columns);
 			} while( badNums(offLim, i, j) );
 
-			squares[i][j] = new MineSquare(i, j);
+			squares[i][j] = new Square(i, j, true);
 			offLim.add(squares[i][j]);  //adds new mine to offLim to make sure that another mine is not put there
-			mines.add((MineSquare) squares[i][j]);	//adds new mine to the collection of mines
+			mines.add(squares[i][j]);	//adds new mine to the collection of mines
 			placeNums(i, j);
 		}
+		setup = true;
 		reveal(row, col);
 	}
 
-	public ArrayList<MineSquare> getMines() {
+	public ArrayList<Square> getMines() {
 		return mines;
 	}
 
-	public int reveal(Square sq) {
-		if(sq.getNum() == 100) {
-			levelSetup(sq);
-			return 666;
-		}
-		if( !sq.isRevealed() ) {
-			if(sq.getNum()==0)
-				return reveal((EmptySquare)sq);
-			if(sq.getNum() > 0 && sq.getNum() < 9)
-				return reveal((NumberSquare)sq);
-			if(sq.getNum() == -1)
-				return reveal((MineSquare)sq);
-		}
-		return -5;
+	public void reveal(int row, int col) {
+		reveal(squares[row][col]);
+	}
+
+	public void reveal(Square sq) {
+		if(!setup)
+			levelSetup(sq.getRow(), sq.getCol());
+		else
+			switch(sq.getNum()){
+			case -1:	//square is a mine
+				sq.firstMine();
+				sq.reveal();
+				for(Square square : mines)
+					reveal(square);
+						break;
+			case 0:		//square is an empty square
+				sq.reveal();
+				for(Square square : surroundings(sq))
+					if( !sq.isMine() && !sq.isRevealed() )
+						reveal(square);
+						break;
+			default:
+				sq.reveal();
+				break;
+			}
 	}
 
 	public Square getsq(int r, int c) {
 		return squares[r][c];
 	}
 
-	/*---------------------------------JESSICA GOES CRAZY WITH POLYMORPHISM ;)-----------------------------*/
-	// (SHE TOUGHT IT WOULD COME IN HANDY BUT IT PROBABLY WON'T)
-
+	
 	public void levelSetup(Square firstSquare) {
 		Square fs = firstSquare;
 		int r = fs.getRow();
@@ -165,28 +170,12 @@ public class Game {
 		return surroundings(sq.getRow(), sq.getCol());
 	}
 
-	public int reveal(EmptySquare eSq) {
-		eSq.reveal();
-		for(Square sq : surroundings(eSq))
-			if( !(sq instanceof MineSquare) )
-			reveal(sq);
-		return 0;
+	public void printSquares() {
+		for(Square[] sqs : squares) {
+			System.out.print("\n");
+			for(Square sq : sqs)
+				System.out.print("|" + sq.getNum());
+		}
 	}
-
-	public int reveal(MineSquare mSq) {
-		mSq.reveal();
-		for(MineSquare mine : mines)
-			mine.reveal();
-		return -1;
-	}
-
-	public int reveal(NumberSquare nSq) {
-		return nSq.reveal();
-	}
-
-	public int reveal(int r, int c) {
-		return reveal(squares[r][c]);
-	}
-
 
 }
