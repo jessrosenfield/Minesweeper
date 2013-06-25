@@ -42,23 +42,8 @@ public class ButtonGrid extends JPanel implements ActionListener {
 		setSize(new Dimension(35*width,35*length));
 	}
 
-	private void refresh() {
-		for(int y = 0; y < length; y++) {
-			for(int x = 0; x < width; x++) {
-				bGrid[x][y] = new Button(game.getsq(x, y));
-				JButton b = bGrid[x][y].getJB();
-				b.setActionCommand(y+","+x);
-				grid[x][y] = b;
-				grid[x][y].addActionListener(this);
-				add(grid[x][y]);
-
-			}
-		}
-	}
-
 	public void click(int x, int y) {
 		game.reveal(x, y);
-		refresh();
 		grid[x][y] = bGrid[x][y].getJB();
 	}
 
