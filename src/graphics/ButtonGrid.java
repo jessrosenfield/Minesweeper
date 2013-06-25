@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "unused" })
 public class ButtonGrid extends JPanel {
 	public JPanel panel = new JPanel();
 	private MButton[][] grid;
