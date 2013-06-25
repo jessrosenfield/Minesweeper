@@ -31,11 +31,14 @@ public class Square {
     
     public void flag() {
         flagged = !flagged;
-        //TODO integrate with counter and GUI
+    }
+    
+    public boolean isFlagged() {
+    	return flagged;
     }
 
     public int getNum() {
-        int i = (Integer) null;
+        int i = 100;
     	return i;
     }
 }

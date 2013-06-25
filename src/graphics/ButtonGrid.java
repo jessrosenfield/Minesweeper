@@ -9,76 +9,44 @@ import game.*;
 
 @SuppressWarnings("serial")
 public class ButtonGrid extends JPanel implements ActionListener {
-	static JPanel panel = new JPanel();
-	Button[][] bGrid;
-	JButton[][] grid;
-	int width;
-	int length;
-	Game game;
-	
+	public static int xClick;
+	public static int yClick;
+	public static JPanel panel = new JPanel();
+	private MButton[][] grid;
+	public final int width;
+	public final int length;
+	public final Game game;
+
 	public ButtonGrid(Game g) {
 		game = g;
 		width = game.level.rows;
 		length = game.level.columns;
+		game.levelSetup((int)Math.random()*width, (int)Math.random()*length);
 		setLayout(new GridLayout(width,length));
-		bGrid = new Button[width][length];
-		grid = new JButton[width][length];
+		grid = new MButton[width][length];
 		for(int y = 0; y < length; y++) {
 			for(int x = 0; x < width; x++) {
-				try {
-					bGrid[x][y] = new Button(game.getsq(x, y));
-					JButton b = bGrid[x][y].getJB();
-					b.setActionCommand(y+","+x);
-					grid[x][y] = b;
-					grid[x][y].addActionListener(this);
-					add(grid[x][y]);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				grid[x][y] = new MButton(game.getsq(x, y));
+				grid[x][y].addActionListener(this);
+				add(grid[x][y]);				
 			}
 		}
-		
 		setVisible(true);
 		setSize(new Dimension(35*width,35*length));
 	}
-	
+
 	private void refresh() {
-		for(int y = 0; y < length; y++) {
-			for(int x = 0; x < width; x++) {
-				try {
-					bGrid[x][y] = new Button(game.getsq(x, y));
-					JButton b = bGrid[x][y].getJB();
-					b.setActionCommand(y+","+x);
-					grid[x][y] = b;
-					grid[x][y].addActionListener(this);
-					add(grid[x][y]);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
+		for(int y = 0; y < length; y++)
+			for(int x = 0; x < width; x++)
+				grid[x][y].update(game.getsq(x, y));
 	}
-	
+
+
 	public void click(int x, int y) {
-		int i = game.reveal(x, y);
+		/*int i = game.reveal(x, y);
 		refresh();
-		System.out.println(i);
-		grid[x][y] = bGrid[x][y].getJB();
-		if(i == -1)
-			for(Square sq : game.getMines() ) {
-				int r = sq.getRow();
-				int c = sq.getCol();
-				grid[r][c] = bGrid[r][c].getJB();
-			}
-		if(i == 0)
-			for(Square sq : game.surroundings(game.getsq(x, y)) ) {
-				int r = sq.getRow();
-				int c = sq.getCol();
-				grid[r][c] = bGrid[r][c].getJB();
-			}
-		
+		System.out.println(i);*/
+		System.out.println(game.getsq(x, y).getNum());
 	}
 
 	public static JPanel returnPanel() {
@@ -87,8 +55,6 @@ public class ButtonGrid extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		String s = arg0.getActionCommand();
-		this.click(Integer.parseInt(s.substring(0, 1)), Integer.parseInt(s.substring(2, 3)));
-		
+		click(xClick, yClick);
 	}
 }

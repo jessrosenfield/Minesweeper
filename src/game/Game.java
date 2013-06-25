@@ -15,7 +15,7 @@ public class Game {
 
 	private Square[][] squares; //the grid of squares
 
-	private ArrayList<Square> mines;	//keeps track of all of the squares that are mines
+	private ArrayList<MineSquare> mines;	//keeps track of all of the squares that are mines
 
 	/*******************************************************************************************/
 
@@ -23,11 +23,11 @@ public class Game {
 		level = l;
 		lastLevel = l;
 		squares = new Square[level.rows][level.columns];
-		mines = new ArrayList<Square>();
+		mines = new ArrayList<MineSquare>();
 		placeSquares();
 	}
 
-	//the default constructer uses the last level used as the level for the new game
+	//the default constructor uses the last level used as the level for the new game
 	public Game() {
 		this(lastLevel);
 	}
@@ -35,7 +35,7 @@ public class Game {
 	public void placeSquares() {
 		for(int r = 0; r < level.rows; r++)
 			for(int c = 0; c < level.columns; c++)
-				squares[r][c] = new EmptySquare(r, c);
+				squares[r][c] = new Square(r, c);
 	}
 
 	/********************************************************************************************/       
@@ -121,35 +121,30 @@ public class Game {
 
 			squares[i][j] = new MineSquare(i, j);
 			offLim.add(squares[i][j]);  //adds new mine to offLim to make sure that another mine is not put there
-			mines.add(squares[i][j]);	//adds new mine to the collection of mines
+			mines.add((MineSquare) squares[i][j]);	//adds new mine to the collection of mines
 			placeNums(i, j);
 		}
-
+		reveal(row, col);
 	}
 
-	public ArrayList<Square> getMines() {
+	public ArrayList<MineSquare> getMines() {
 		return mines;
 	}
 
 	public int reveal(Square sq) {
-		
-		if( !sq.isRevealed() ) {
-			if(sq instanceof EmptySquare)
-				return reveal((EmptySquare)sq);
-			if(sq instanceof NumberSquare)
-				return reveal((NumberSquare)sq);
-			if(sq instanceof MineSquare)
-				return reveal((MineSquare)sq);
-			if(sq instanceof Square) {
-				int r = sq.getRow();
-				int c = sq.getCol();
-				levelSetup(r, c);
-				return reveal(r, c);
-			}
-			return -5;
+		if(sq.getNum() == 100) {
+			levelSetup(sq);
+			return 666;
 		}
-		else
-			return -5;
+		if( !sq.isRevealed() ) {
+			if(sq.getNum()==0)
+				return reveal((EmptySquare)sq);
+			if(sq.getNum() > 0 && sq.getNum() < 9)
+				return reveal((NumberSquare)sq);
+			if(sq.getNum() == -1)
+				return reveal((MineSquare)sq);
+		}
+		return -5;
 	}
 
 	public Square getsq(int r, int c) {
@@ -173,12 +168,16 @@ public class Game {
 	public int reveal(EmptySquare eSq) {
 		eSq.reveal();
 		for(Square sq : surroundings(eSq))
+			if( !(sq instanceof MineSquare) )
 			reveal(sq);
 		return 0;
 	}
 
 	public int reveal(MineSquare mSq) {
-		return mSq.reveal();
+		mSq.reveal();
+		for(MineSquare mine : mines)
+			mine.reveal();
+		return -1;
 	}
 
 	public int reveal(NumberSquare nSq) {
