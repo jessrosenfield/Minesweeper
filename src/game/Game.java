@@ -119,7 +119,6 @@ public class Game {
 			squares[i][j] = new Square(i, j, true);
 			offLim.add(squares[i][j]);  //adds new mine to offLim to make sure that another mine is not put there
 			mines.add(squares[i][j]);	//adds new mine to the collection of mines
-			placeNums(i, j);
 		}
 		setup = true;
 		reveal(row, col);
