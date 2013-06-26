@@ -27,10 +27,11 @@ public class ButtonGrid extends JPanel implements ActionListener {
 		setLayout(new GridLayout(width,length));
 		bGrid = new Button[width][length];
 		grid = new JButton[width][length];
-		for(int y = 0; y < length; y++) {
-			for(int x = 0; x < width; x++) {
+		for(int x = 0; x < length; x++) {
+			for(int y = 0; y < width; y++) {
 				bGrid[x][y] = new Button(game.getsq(x, y));
-				JButton b = bGrid[x][y].getJB();
+				JButton b = new JButton();
+				b.setIcon(bGrid[x][y].getImgi());
 				b.setActionCommand(y+","+x);
 				grid[x][y] = b;
 				grid[x][y].addActionListener(this);
@@ -42,9 +43,17 @@ public class ButtonGrid extends JPanel implements ActionListener {
 		setSize(new Dimension(35*width,35*length));
 	}
 
-	public void click(int x, int y) {
-		game.reveal(x, y);
-		grid[x][y] = bGrid[x][y].getJB();
+	public void click(int r, int c) {
+		game.reveal(r, c);
+		for(int x = 0; x < length; x++) {
+			for(int y = 0; y < width; y++) {
+				JButton b = grid[x][y];
+				b.setIcon(bGrid[x][y].getImgi());
+				b.setActionCommand(x+","+y);
+				grid[x][y].addActionListener(this);
+				add(grid[x][y]);
+			}
+		}
 	}
 
 	public static JPanel returnPanel() {
@@ -69,35 +78,27 @@ public class ButtonGrid extends JPanel implements ActionListener {
 			col = sq.getCol();
 		}
 
-		public JButton basicButton() {
-			JButton button = getJB();
-			return button;
-		}
 		public int getRow() {
 			return row;
 		}
 		public int getCol() {
 			return col;
 		}
-		public JButton getJB() {
-			JButton jb = new JButton();
-			if(!square.isRevealed())
-				if(square.isFlagged())
-					jb = new JButton(flag());
-				else
-					jb.setIcon(blue());
+		public ImageIcon getImgi() {
+			ImageIcon imgi = blue();
+			if(square.isFlagged())
+				imgi = flag();
 			if(square.isRevealed()) {
 				if(square.getNum() == 0)
-					jb = new JButton(blank());
+					imgi = blank();
 				if(square.getNum()>0)
-					jb = new JButton( numImg() );
+					imgi = numImg();
 				if(square.getNum() == -1)
-					jb = new JButton(mine());
+					imgi = mine();
 				if(square.getNum() == -2)
-					jb = new JButton(mine1());
+					imgi = mine1();
 			}
-			jb.setPreferredSize(new Dimension(35, 35));
-			return jb;
+			return imgi;
 		}
 		private ImageIcon blue(){
 			BufferedImage BI = null;
