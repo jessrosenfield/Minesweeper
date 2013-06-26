@@ -3,8 +3,12 @@ package graphics;
 import javax.swing.*;
 
 import game.Game;
+import game.Level;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*; 
 
 @SuppressWarnings("unused")
@@ -25,6 +29,18 @@ public class GUI
        frame.setVisible(true);
        return frame;
    }
+   
+   /*private JPanel addMenu() {
+	   JPanel jp = new JPanel();
+	   jp.setLayout(new GridLayout(3,1));
+	   JButton b = new JButton("Beginner");
+	   b.addActionListener( 
+	   void ActionPerformed(ActionEvent arg0) {
+		   new Game(Level.BEGINNER);
+		   createWindow();
+	   });
+	   }
+   }*/
       
    public static void main(String[] args) {
       createWindow();

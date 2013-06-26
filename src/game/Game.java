@@ -106,6 +106,8 @@ public class Game {
 	private void levelSetup(int row, int col) {
 		ArrayList<Square> offLim = new ArrayList<Square>();	//makes an arraylist of squares not to be messed with
 		offLim.add(squares[row][col]);	//adds first square to offLim to make sure it stays an EmptySquare
+		for(Square sq : surroundings(row, col))
+			offLim.add(sq);
 		for(int m = 0; m < level.mines; m++) {
 			int i; int j;
 
@@ -140,21 +142,28 @@ public class Game {
 		else
 			switch(sq.getNum()){
 			case -1:	//square is a mine
+				if(noMinesRevealed())
+					sq.firstMine();
 				sq.reveal();
-				sq.firstMine();
 				for(Square square : mines)
 					reveal(square);
-						break;
+				break;
 			case 0:		//square is an empty square
 				sq.reveal();
 				for(Square square : surroundings(sq))
-					if( !sq.isMine() && !sq.isRevealed() )
-						reveal(square);
-						break;
+					reveal(square);
+				break;
 			default:
 				sq.reveal();
 				break;
 			}
+	}
+
+	public boolean noMinesRevealed() {
+		for(Square m : mines)
+			if( m.isRevealed() )
+				return false;
+		return true;
 	}
 
 	public Square getsq(int r, int c) {

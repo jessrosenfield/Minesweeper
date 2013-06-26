@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+
 import game.*;
 
 @SuppressWarnings("serial")
@@ -27,11 +28,11 @@ public class ButtonGrid extends JPanel implements ActionListener {
 		setLayout(new GridLayout(width,length));
 		bGrid = new Button[width][length];
 		grid = new JButton[width][length];
-		for(int y = 0; y < length; y++) {
-			for(int x = 0; x < width; x++) {
+		for(int x = 0; x < length; x++) {
+			for(int y = 0; y < width; y++) {
 				bGrid[x][y] = new Button(game.getsq(x, y));
 				JButton b = bGrid[x][y].getJB();
-				b.setActionCommand(y+","+x);
+				b.setActionCommand(x+","+y);
 				grid[x][y] = b;
 				grid[x][y].addActionListener(this);
 				add(grid[x][y]);
@@ -42,19 +43,32 @@ public class ButtonGrid extends JPanel implements ActionListener {
 		setSize(new Dimension(35*width,35*length));
 	}
 
+	public void refresh() {
+		for(int x = 0; x < length; x++) {
+			for(int y = 0; y < width; y++) {
+				bGrid[x][y].updateSq(game.getsq(x, y));
+				grid[x][y].setIcon(bGrid[x][y].getImgi());
+			}
+		}
+	}
+	
 	public void click(int x, int y) {
 		game.reveal(x, y);
-		grid[x][y] = bGrid[x][y].getJB();
 	}
-
+	
 	public static JPanel returnPanel() {
 		return panel;
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		String s = arg0.getActionCommand();
-		this.click(Integer.parseInt(s.substring(0, 1)), Integer.parseInt(s.substring(2, 3)));
+		int i = Integer.parseInt(s.substring(0, 1));
+		int j = Integer.parseInt(s.substring(2, 3));
+		if(arg0.getModifiers() == 17)
+			game.getsq(i, j).flag();
+		else
+			this.click(i, j);
+		refresh();
 
 	}
 	public class Button {
@@ -69,10 +83,10 @@ public class ButtonGrid extends JPanel implements ActionListener {
 			col = sq.getCol();
 		}
 
-		public JButton basicButton() {
-			JButton button = getJB();
-			return button;
+		public void updateSq(Square sq) {
+			square = sq;
 		}
+		
 		public int getRow() {
 			return row;
 		}
@@ -237,6 +251,24 @@ public class ButtonGrid extends JPanel implements ActionListener {
 			break;
 			default: imgi = blank();
 			break;
+			}
+			return imgi;
+		}
+		public ImageIcon getImgi() {
+			ImageIcon imgi = blue();
+			if(!square.isRevealed()) {
+				if(square.isFlagged())
+					imgi = flag();
+			}
+			if(square.isRevealed()) {
+				if(square.getNum() == 0)
+					imgi = blank();
+				if(square.getNum() > 0)
+					imgi = numImg();
+				if(square.getNum() == -1)
+					imgi = mine();
+				if(square.getNum() == -2)
+					imgi = mine1();
 			}
 			return imgi;
 		}
